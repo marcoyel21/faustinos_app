@@ -33,16 +33,22 @@ if not st.session_state.authenticated:
 # Sidebar navigation
 # -----------------------
 if st.session_state.authenticated:
-    page_options = ["Alineacion", "Resumen", "Add Stats", "Add Aportaciones", "Add jornada"]
+    page_options = ["Inicio","Alineacion", "Resumen", "Add Stats", "Add Aportaciones", "Add jornada"]
 else:
-    page_options = ["Alineacion", "Resumen"]  # only read-only pages
+    page_options = ["Inicio","Alineacion", "Resumen"]  # only read-only pages
 
 page = st.sidebar.selectbox("Navigate", page_options)
 
 # -----------------------
 # PAGE ROUTING
 # -----------------------
-if page == "Alineacion":
+
+from views.front_page import front_page_view
+
+
+if page == "Inicio":
+    front_page_view()
+elif page == "Alineacion":
     juegos_view()
 elif page == "Resumen":
     summary_view()
