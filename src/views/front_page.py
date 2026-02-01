@@ -40,20 +40,7 @@ def front_page_view():
         st.markdown(f"**Cancha:** {juego['cancha']}")
         st.markdown(f"**Hora:** {juego['hora']}")
 
-    # -----------------------
-    # PNG image
-    # -----------------------
-    try:
-        # Load a PNG from local folder or static path
-        img = Image.open("static/stadium.png")  # cambia a tu ruta
-        with col2:
-            st.image(img, use_column_width=True)
-    except FileNotFoundError:
-        st.info("Imagen de cancha no disponible.")
-
-    # -----------------------
-    # Optional: add cancha layout as a small preview
-    # -----------------------
-    # from views.juegos_view import draw_field_plotly
-    # fig = draw_field_plotly()
-    # st.plotly_chart(fig, use_container_width=True)
+    # Image via URL
+    image_url = "https://github.com/marcoyel21/faustinos_app/blob/069822f6a35afa863cddd72e0050e20de2c19e6a/canchas.jpg?raw=true"
+    with col2:
+        st.image(image_url, caption="Vista de la cancha", width=400)
