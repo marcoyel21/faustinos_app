@@ -77,23 +77,22 @@ def add_stats_view():
             # UPSERT: actualizar si existe, insertar si no
             # -----------------------
             query = text("""
-                INSERT INTO stats
-                (
-                    id, jornada, gol, asistencia, amarillas, rojas, cambio, lesion, posicion, status
-                )
-                VALUES
-                (
-                    :id, :jornada, :gol, :asistencia, :amarillas, :rojas, :cambio, :lesion, :posicion, :status
-                )
-                ON CONFLICT(id, jornada, posicion) 
-                DO UPDATE SET
-                    gol = EXCLUDED.gol,
-                    asistencia = EXCLUDED.asistencia,
-                    amarillas = EXCLUDED.amarillas,
-                    rojas = EXCLUDED.rojas,
-                    cambio = EXCLUDED.cambio,
-                    lesion = EXCLUDED.lesion,
-                    status = EXCLUDED.status
+            INSERT INTO stats
+            (
+                id, jornada, gol, asistencia, amarillas, rojas, cambio, lesion, posicion, status
+            )
+            VALUES
+            (
+                :id, :jornada, :gol, :asistencia, :amarillas, :rojas, :cambio, :lesion, :posicion, :status
+            )
+            ON DUPLICATE KEY UPDATE
+                gol = VALUES(gol),
+                asistencia = VALUES(asistencia),
+                amarillas = VALUES(amarillas),
+                rojas = VALUES(rojas),
+                cambio = VALUES(cambio),
+                lesion = VALUES(lesion),
+                status = VALUES(status)
             """)
 
             params = {
